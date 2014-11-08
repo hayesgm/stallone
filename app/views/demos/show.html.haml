@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @demo.first_name
+%p
+  %b Last name:
+  = @demo.last_name
+%p
+  %b Company:
+  = @demo.company
+%p
+  %b Email:
+  = @demo.email
+%p
+  %b Employees:
+  = @demo.employees
+%p
+  %b Interest:
+  = @demo.interest
+
+= link_to 'Edit', edit_demo_path(@demo)
+\|
+= link_to 'Back', demos_path

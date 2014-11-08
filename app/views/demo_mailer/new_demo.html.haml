@@ -1,0 +1,15 @@
+New Demo
+
+%p
+  .item
+    First name: #{@demo.first_name}
+  .item
+    Last name: #{@demo.last_name}
+  .item
+    Company: #{@demo.company}
+  .item
+    Email: #{@demo.email}
+  .item
+    Employees: #{DemosController.helpers.employee_select_options[@demo.employees] || @demo.employees}
+  .item
+    Interest: #{@demo.interest}

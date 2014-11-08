@@ -1,0 +1,6 @@
+
+development:
+  mixpanel_token: "bbcdd245255138c8922412f8b1ca88e2"
+
+production:
+  mixpanel_token: "47f2f70fb27a6fdac42f4eebf0416b08"

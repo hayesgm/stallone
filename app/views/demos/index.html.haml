@@ -1,0 +1,29 @@
+%h1 Listing demos
+
+%table
+  %tr
+    %th First name
+    %th Last name
+    %th Company
+    %th Email
+    %th Employees
+    %th Interest
+    %th
+    %th
+    %th
+
+  - @demos.each do |demo|
+    %tr
+      %td= demo.first_name
+      %td= demo.last_name
+      %td= demo.company
+      %td= demo.email
+      %td= demo.employees
+      %td= demo.interest
+      %td= link_to 'Show', demo
+      %td= link_to 'Edit', edit_demo_path(demo)
+      %td= link_to 'Destroy', demo, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Demo', new_demo_path

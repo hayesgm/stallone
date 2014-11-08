@@ -1,0 +1,119 @@
+@import "../functions"
+
+=btn($color)
+  line-height: 1.4em
+  padding: .7em 1.4em
+  font-weight: 600
+  text-transform: uppercase
+
+  +btn-color($color)
+ 
+  &:hover
+    text-decoration: none
+    +transition(all, .2s, linear)
+
+=btn-color($base_color)
+  background: $base_color
+
+  +text-color($base_color)
+
+  border-color: darken($base_color, lightness($base_color) / 10 )
+
+  &:hover, &:active, &:focus
+    border-color: darken($base_color, lightness($base_color) / 5 )
+    background: darken($base_color, 5%)
+
+=text-color($base_color)
+  @if lightness($base_color) > 60%
+    color: darken($base_color, 60%)
+    text-shadow: 0px 1px 0px #FFFFFF
+    &:hover
+      color: darken($base_color, 55%)
+  @else
+    color: #FFFFFF
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, .1)
+    &:hover
+      color: #FFFFFF
+
+.btn-default
+  +btn($matting_color)
+.btn-primary
+  +btn($main_color)
+.btn-danger
+  +btn($alt_color)
+.btn-facebook
+  +btn(#3B5998)
+.btn-twitter
+  +btn(#00A6E6)
+.btn-linkedin
+  +btn(#0072B4)
+.btn-hollow
+  background: none
+  border: 2px solid $main_color
+  color: $main_color
+  line-height: 1.4em
+  font-weight: 600
+  text-shadow: none
+  text-transform: uppercase
+
+
+.onoffswitch
+  display: inline-block
+  width: 125px
+  height: 30px
+  border: 1px solid #7F7F7F
+  border-radius: 4px
+  position: relative
+  overflow: hidden
+  cursor: pointer
+  text-align: center
+  vertical-align: middle
+  .switch_setting, .switch_button
+    height: 30px
+    line-height: 30px
+    position: absolute
+    top: 0px
+    +transition(all, 0.2s, ease-in-out)
+  &.off
+    .switch_setting.left
+      left: -100px
+    .switch_button
+      left: 0px
+    .switch_setting.right
+      left: 25px
+  &.off:hover
+    .switch_setting.left
+      left: -90px
+    .switch_button
+      left: 5px
+    .switch_setting.right
+      left: 30px
+  &.on:hover
+    .switch_setting.left
+      left: -5px
+    .switch_button
+      left: 90px
+    .switch_setting.right
+      left: 115px
+  .switch_button
+    display: inline-block
+    width: 30px
+    background: #F5F5F5
+    border-radius: 4px
+    box-shadow: 0px 0px 3px rgba(0,0,0,.3), 0px 2px 1px #FFFFFF inset, 0px -1px 1px rgba(0,0,0,.3) inset
+    left: 95px
+    z-index: 10
+  .switch_setting
+    box-shadow: 0px 3px 2px rgba(0,0,0,.2) inset
+    width: 100px
+    text-transform: uppercase
+    font-weight: 600
+    &.left
+      background: #2390D6
+      color: #FFFFFF
+      text-shadow: 0px 1px 0px rgba(0,0,0,.4)
+      left: 0px
+    &.right
+      background: #D5D5D5
+      text-shadow: 0px 1px 0px #FFFFFF
+      left: 160px

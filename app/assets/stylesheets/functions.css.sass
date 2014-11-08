@@ -1,0 +1,80 @@
+=clearfix
+  zoom: 1
+  &:before, &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+
+=linear-gradient($fromColor, $toColor)
+  background-color: mix($fromColor, $toColor)
+  background-image: -webkit-gradient(linear, left top, left bottom, from($fromColor), to($toColor))
+  background-image: -webkit-linear-gradient(top, $fromColor, $toColor)
+  background-image:    -moz-linear-gradient(top, $fromColor, $toColor)
+  background-image:     -ms-linear-gradient(top, $fromColor, $toColor)
+  background-image:      -o-linear-gradient(top, $fromColor, $toColor)
+  background-image:         linear-gradient(top, $fromColor, $toColor)
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}')
+
+=box-sizing($box)
+  -moz-box-sizing: $box
+  box-sizing: $box
+
+=box-shadow($shadows...)
+  -moz-box-shadow: $shadows
+  -webkit-box-shadow: $shadows
+  box-shadow: $shadows
+
+=transition($transition-property, $transition-time, $method)
+  -webkit-transition: $transition-property $transition-time $method
+  -moz-transition: $transition-property $transition-time $method
+  -ms-transition: $transition-property $transition-time $method
+  -o-transition: $transition-property $transition-time $method
+  transition: $transition-property $transition-time $method
+
+
+// Add percentage of white to a color
+@function tint($color, $percent)
+  @return mix(white, $color, $percent)
+
+// Add percentage of black to a color
+@function shade($color, $percent)
+  @return mix(black, $color, $percent)
+
+
+=keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+
+=border-bottom-radius($radius)
+  border-bottom-left-radius: $radius
+  border-bottom-right-radius: $radius
+=border-top-radius($radius)
+  border-top-left-radius: $radius
+  border-top-right-radius: $radius
+=border-left-radius($radius)
+  border-top-left-radius: $radius
+  border-bottom-left-radius: $radius
+=border-right-radius($radius)
+  border-top-right-radius: $radius
+  border-bottom-right-radius: $radius
+
+=input-placeholder($color, $text-shadow)
+  &.placeholder
+    color: $color
+    @if $text-shadow
+      text-shadow: $text-shadow
+  &:-moz-placeholder
+    color: $color
+    @if $text-shadow
+      text-shadow: $text-shadow
+  &::-webkit-input-placeholder
+    color: $color
+    @if $text-shadow
+      text-shadow: $text-shadow

@@ -1,0 +1,97 @@
+@import 'base/mixins'
+@import 'base/globals'
+
+@import 'bootstrap-sprockets'
+@import 'bootstrap'
+
+@import 'styles/*'
+
+#intro
+  background: url("/images/bg_hay.jpg")
+  background-size: cover
+  background-position: center bottom
+  background-repeat: no-repeat
+  padding: 100px 0px
+  h1
+    text-align: center
+  p
+    display: block
+    max-width: 720px
+    margin: 20px auto 40px
+    font-size: 16px
+    text-align: center
+  .request_demo
+    text-align: center
+    .btn
+      font-size: 18px
+      padding: .8em 1.6em
+
+#steps
+  background: $matting_color
+  border-bottom: 1px solid $border_color
+  padding: 15px 0px
+  text-align: center
+  .step
+    display: inline-block
+    margin: 5px 5px
+
+#data_types
+  padding: 60px 0px
+  text-align: center
+  img
+    margin: 40px auto 20px
+
+#final-cta
+  background: $matting_color
+  border-top: 1px solid $border_color
+  border-bottom: 1px solid $border_color
+  padding: 20px 0px 40px
+  text-align: center
+  span, .btn
+    display: inline-block
+    margin: 20px 10px 0px
+  span
+    font-size: 18px
+    vertical-align: middle
+
+#core
+  background: $matting_color
+  border-top: 1px solid $border_color
+  border-bottom: 1px solid $border_color
+  padding: 40px 0px
+
+form
+  .form-control
+    height: 40px
+    &:focus
+      background: tint($main_color, 95%)
+      border-color: $main_color
+      box-shadow: none
+
+.form-header
+  background: shade($matting_color, 70%)
+  border-radius: 5px 5px 0px 0px
+  padding: 20px 40px
+  font-size: 16px
+  color: tint($matting_color, 85%)
+.form-body
+  background: #FFFFFF
+  border-width: 0px 1px 1px 1px
+  border-color: $border_color
+  border-style: solid
+  border-radius: 0px 0px 5px 5px
+  padding: 30px 40px 10px
+  .inset
+    position: relative
+    label
+      margin: 0px
+      position: absolute
+      top: 10px
+      left: 10px
+    input, textarea
+      padding: 10px 0px 10px 100px
+  .selector
+    label
+      margin: 0px 0px 0px 10px
+    select
+      float: right

@@ -1,0 +1,29 @@
+= form_for @demo, :class => "form-horizontal", url: demo_path do |f|
+  .form-header Is your business eligible for BOSS Abilities?
+  .form-body
+
+    - if @demo.errors.any?
+      #error_explanation
+        - @demo.errors.full_messages.each do |msg|
+          %span= msg
+
+    .form-group.inset
+      = f.label :first_name
+      = f.text_field :first_name, :class => "form-control"
+    .form-group.inset
+      = f.label :last_name
+      = f.text_field :last_name, :class => "form-control"
+    .form-group.inset
+      = f.label :email
+      = f.text_field :email, :class => "form-control"      
+    .form-group.inset
+      = f.label :company
+      = f.text_field :company, :class => "form-control"
+    .form-group.selector.clearfix
+      = f.label :employees, 'Number of employees'
+      = f.select :employees, employee_select_options.invert.to_a, :class => "form-control"
+    .form-group.inset
+      = f.label :interest, 'Industry'
+      = f.text_area :interest, :class => "form-control"
+    .form-group
+      %button.btn.btn-primary.btn-block{type: 'submit'} Schedule a conversation
