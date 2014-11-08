@@ -63,6 +63,9 @@ gem 'vignette'
 # Qonf
 gem 'qonf'
 
+# Twilio
+gem 'twilio-ruby'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

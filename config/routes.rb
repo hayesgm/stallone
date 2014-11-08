@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
-  get 'verifications/new'
+  # Verifications
+  post 'verifications/new'
+  post 'verifications/confirm'
 
-  get 'verifications/confirm'
+  # Users
+
+  
 
   get '/done' => 'home#done', as: :done
   get '/privacy' => 'home#privacy', as: :privacy
