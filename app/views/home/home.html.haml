@@ -1,46 +1,52 @@
 %section#intro
   .container
     %h1
-      :vignette
-        You have data. Start using it.
-        Use your data to grow your business
-        Get actionable insights from your data
-    %p As a small business owner, you collect tons of data about your business.  Sales, website metrics, and all of those spreadsheets. But what do you do with that data? Each month, BOSS will review everything you send us, and recommend actionable steps to grow your bottom line.
+      "Junk science is putting innocent people in jail"
+      %i - The Economist
+    .row
+      .col-sm-9
+        %p Imagine, for a second, that you've been charged with a crime you didn't commit. You know the police have the wrong person, but they're determined to build a case against you with circumstantial and weak evidence. There's no way you could possibly go to jail, right?
+        %p
+          Wrong. Cell phone tower data is frequently used to
+          %a{:href => "http://www.economist.com/news/united-states/21615622-junk-science-putting-innocent-people-jail-two-towers"} 'pinpoint'
+          people to locations they
+          %a{:href => "http://www.economist.com/news/united-states/21615622-junk-science-putting-innocent-people-jail-two-towers"} weren't
+          at. And in the absence of
+          %a{:href => "http://www.abajournal.com/magazine/article/prosecutors_use_of_mobile_phone_tracking_is_junk_science_critics_say/"} skilled expert witnesses
+          or counter evidence, people go to jail.
+        %p That's why we've created Innocent, an app which creates an archive of your location history. If you ever need it, to prove where you were or weren't, it's available to you (and only you).
+      .col-sm-3
+        %img.img-responsive{:src => "/assets/location_usa.jpg"}
     .request_demo
-      %a.btn.btn-primary{href: demo_path} Get BOSS Abilities
+      %a.btn.btn-primary{href: demo_path} Download iPhone app
+      %span.btn.btn-pending Android app coming soon
 %section#steps
   .container
     .step
       %span.badge Step 1
-      %span.content Send us your data
+      %span.content Install the app on your phone
     .step
       %span.badge Step 2
-      %span.content Answer questions we might have
+      %span.content Every 30m, it pings your location
     .step
       %span.badge Step 3
-      %span.content Monthly findings & strategy session with BOSS
-%section#data_types
+      %span.content Only you can access the archive, as needed
+%section#features
   .container
-    %h3 What types of data will we analyze?
     .row
-      .col-sm-6
-        %img{:src => "/images/data_xls.png"}
-        %h4 Spreadsheets
-        %p As long as it's human-readable, spreadsheets are a great way for BOSS to understand your business.
-      .col-sm-6
-        %img{:src => "/images/data_transaction.png"}
-        %h4 Transaction data
-        %p If you have digital transaction data, such as credit card processing reports, we can derive unit economics and sales trends.
-    .row
-      .col-sm-6
-        %img{:src => "/images/data_analytics.png"}
-        %h4 Website analytics
-        %p If you have a Google Analytics, Mixpanel, or analytics system, great! We're experts at extracting value from raw metrics.
-      .col-sm-6
-        %img{:src => "/images/data_paper.png"}
-        %h4 Paper records
-        %p Yes, we can work with paper. But don't be surprised if we try to help digitize your business along the way.
+      .col-sm-4
+        %img{:src => "/assets/features_secure.png"}
+        %h4 Fully encrypted
+        %p 100% Encrypted. With magic. And science. And SSL. And Geoff wisdom. Don't worry about the FBI or anyone getting into your archive.
+      .col-sm-4
+        %img{:src => "/assets/features_portable.png"}
+        %h4 Your data is yours
+        %p Fully portable data. You can take it with you, export it, or use it however you'd like.
+      .col-sm-4
+        %img{:src => "/assets/features_accurate.png"}
+        %h4 Fully accurate
+        %p No question about it -- if we say you were somewhere, your phone was somewhere. Auditable, will comply in court.
 %section#final-cta
   .container
-    %span Guaranteed to help your business, and crazy affordable
-    %a.btn.btn-primary{:href => demo_path} Get BOSS Abilities
+    %span Get access to your accurate location history
+    %a.btn.btn-primary{:href => demo_path} Download iPhone app

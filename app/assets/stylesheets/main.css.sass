@@ -7,27 +7,33 @@
 @import 'styles/*'
 
 #intro
-  background: url("/images/bg_hay.jpg")
-  background-size: cover
-  background-position: center bottom
-  background-repeat: no-repeat
-  padding: 100px 0px
+  padding: 40px 0px
   h1
+    margin-bottom: 40px
+    font-size: 28px
     text-align: center
+    i
+      font-weight: 100
   p
-    display: block
-    max-width: 720px
-    margin: 20px auto 40px
-    font-size: 16px
-    text-align: center
+    font-size: 18px
   .request_demo
+    margin: 40px 0px 0px 0px
     text-align: center
     .btn
-      font-size: 18px
-      padding: .8em 1.6em
+      font-size: 16px
+      margin: 0px 5px
+      padding: 16px 26px
+    .btn-pending
+      border: 2px dashed tint($text_color, 50%)
+      padding: 15px 26px
+      line-height: 1.4em
+      font-weight: 600
+      text-transform: uppercase
+      color: tint($text_color, 30%)
 
 #steps
   background: $matting_color
+  border-top: 1px solid $border_color
   border-bottom: 1px solid $border_color
   padding: 15px 0px
   text-align: center
@@ -35,7 +41,7 @@
     display: inline-block
     margin: 5px 5px
 
-#data_types
+#features
   padding: 60px 0px
   text-align: center
   img
