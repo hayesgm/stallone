@@ -62,9 +62,23 @@
     vertical-align: middle
 
 #core
-  background: $matting_color
   border-bottom: 1px solid $border_color
   padding: 40px 0px
+  h3 span
+    font-size: 85%
+    color: darken($matting_color, 10%)
+
+table.table
+  border-right: 1px solid $border_color
+  border-bottom: 1px solid $border_color
+  border-left: 1px solid $border_color
+  margin-top: 40px
+  > thead, > tbody
+    > tr > th, > tr >td
+      border-color: $border_color
+    > tr > th
+      background: $matting_color
+
 
 form
   .form-control
