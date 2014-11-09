@@ -9,6 +9,14 @@ Rails.application.routes.draw do
   post 'users/initialize_keys'
   post 'users/spots' => 'users#add_spot'
 
+  # Session
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+
+  # Account
+  get '/account' => 'accounts#home'
+  get '/map' => 'accounts#map'
+
   get '/done' => 'home#done', as: :done
   get '/privacy' => 'home#privacy', as: :privacy
   get '/tos' => 'home#tos', as: :tos

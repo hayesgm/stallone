@@ -63,4 +63,16 @@ class User < ActiveRecord::Base
     return private_key.private_decrypt(Base64.decode64(msg))
   end
 
+  def verify(passphrase)
+    encrypted = encrypt("test")
+    
+    # Try to decrypt, if it works, we're good
+    begin
+      decrypt(encrypted, passphrase)
+    rescue OpenSSL::PKey::RSAError => e
+      return false
+    end
+
+    return true
+  end
 end
