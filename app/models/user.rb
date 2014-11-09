@@ -7,6 +7,9 @@
 # private_key:: 
 class User < ActiveRecord::Base
 
+  # Relations
+  has_many :spots
+
   # Validations
   validates :auth_token, :phone_number, :uuid, presence: true
 
@@ -46,7 +49,7 @@ class User < ActiveRecord::Base
     public_key = OpenSSL::PKey::RSA.new(self.public_key)
     
     # Return the encrypted string
-    return public_key.public_encrypt(msg)    
+    return Base64.encode64(public_key.public_encrypt(msg))
   end
 
   def decrypt(msg, passphrase)
@@ -57,7 +60,7 @@ class User < ActiveRecord::Base
     private_key = OpenSSL::PKey::RSA.new(self.public_key + self.private_key, passphrase)
 
     # Return the decrypted string
-    return private_key.private_decrypt(msg)
+    return private_key.private_decrypt(Base64.decode64(msg))
   end
 
 end
