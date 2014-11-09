@@ -1,0 +1,32 @@
+
+Users
+-----
+Auth Token (Unique)
+Phone Number (Unique)
+UUID (Unique)
+Public Key
+Private Key -- *requires password on key
+
+Verifications
+-------------
+Phone Number
+Confirmation Token
+
+Location
+--------
+User ID
+TimeStamp
+Encrpyted Location
+Verification Hash
+
+Publish:
+  UUID, Timestamp, Verification
+
+
+rails g model user auth_token:string:uniq phone_number:string:uniq uuid:string:uniq public_key:text private_key:text
+rails g model verification phone_number:string confirmation_token:string
+
+rails g model location user_id:integer encrypted:string verification:string timestamps
+
+
+rails g controller users initialize_keys
