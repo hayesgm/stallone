@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   post 'verifications/confirm'
 
   # Users
-
-  
+  get  'users/check'
+  post 'users/initialize_keys'
 
   get '/done' => 'home#done', as: :done
   get '/privacy' => 'home#privacy', as: :privacy

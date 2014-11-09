@@ -28,3 +28,5 @@ rails g model verification phone_number:string confirmation_token:string
 
 rails g model location user_id:integer encrypted:string verification:string timestamps
 
+
+rails g controller users initialize_keys

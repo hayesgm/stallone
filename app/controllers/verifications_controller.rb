@@ -1,5 +1,7 @@
 class VerificationsController < ApplicationController
 
+  protect_from_forgery except: [:new, :confirm]
+
   # This will create a new verification which we'll later confirm
   def new
     @verification = Verification.new(verification_params)
