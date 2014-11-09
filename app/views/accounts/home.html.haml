@@ -1,3 +1,9 @@
 %h1 Accounts#home
 
 %p Welcome #{@user.phone_number}!
+
+%section#core
+  .container
+    .row
+      .col-sm-6
+        = render 'spots', spots: @user.spots

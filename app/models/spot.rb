@@ -5,6 +5,9 @@
 # message_hash:: 
 class Spot < ActiveRecord::Base
 
+  # Transient attributes
+  attr_accessor :phone_number, :latitude, :longitude, :speed, :course, :timestamp
+
   # Associations
   belongs_to :user
 
@@ -16,6 +19,12 @@ class Spot < ActiveRecord::Base
   # TODO: Test
   def decrypt(passphrase)
     self.user.decrypt(self.encrypted_message, passphrase)
+  end
+
+  def decode(passphrase)
+    JSON(decrypt(passphrase)).each do |k,v|
+      self.send("#{k}=", v)
+    end
   end
 
   # TODO: Test

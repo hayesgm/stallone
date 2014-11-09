@@ -1,0 +1,22 @@
+-# locals: spots
+
+%h3
+  November 8th, 2014
+  %span.glyphicon.glyphicon-backward
+  %span.glyphicon.glyphicon-calendar
+  %span.glyphicon.glyphicon-forward
+%table.table.table-hover
+  %tr
+    %th Date
+    %th Time
+    %th Location
+  - spots.each do |spot|
+
+    - # Decode from session data
+    - spot.decode(session[:passphrase])
+    - time = Time.at(spot.timestamp)
+
+    %tr
+      %td= time.strftime('%m/%d/%y')
+      %td= time.strftime('%l:%M%p').downcase
+      %td #{spot.latitude} &times; #{spot.longitude}

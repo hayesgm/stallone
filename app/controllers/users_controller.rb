@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     longitude = params[:longitude]
     speed = params[:speed]
     course = params[:course]
-    timestamp = params[:timestamp]
+    timestamp = params[:timestamp].to_f # expect a float
 
     raise "Missing lat/lon" if latitude.blank? || longitude.blank?
 
