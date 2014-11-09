@@ -24,7 +24,8 @@
       margin: 0px 5px
       padding: 16px 26px
     .btn-pending
-      border: 2px dashed tint($text_color, 50%)
+      background: $matting_color
+      border: 2px dashed shade($border_color, 6%)
       padding: 15px 26px
       line-height: 1.4em
       font-weight: 600
@@ -62,7 +63,6 @@
 
 #core
   background: $matting_color
-  border-top: 1px solid $border_color
   border-bottom: 1px solid $border_color
   padding: 40px 0px
 
