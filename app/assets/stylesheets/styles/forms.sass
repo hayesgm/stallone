@@ -1,0 +1,35 @@
+form
+  .form-control
+    height: 40px
+    &:focus
+      background: tint($main_color, 95%)
+      border-color: $main_color
+      box-shadow: none
+
+.form-header
+  background: shade($matting_color, 70%)
+  border-radius: 5px 5px 0px 0px
+  padding: 20px 40px
+  font-size: 16px
+  color: tint($matting_color, 85%)
+.form-body
+  background: #FFFFFF
+  border-width: 0px 1px 1px 1px
+  border-color: $border_color
+  border-style: solid
+  border-radius: 0px 0px 5px 5px
+  padding: 30px 40px 10px
+  .inset
+    position: relative
+    label
+      margin: 0px
+      position: absolute
+      top: 10px
+      left: 10px
+    input, textarea
+      padding: 10px 0px 10px 100px
+  .selector
+    label
+      margin: 0px 0px 0px 10px
+    select
+      float: right
