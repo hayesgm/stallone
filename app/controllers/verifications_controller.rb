@@ -10,7 +10,7 @@ class VerificationsController < ApplicationController
       @verification.send_sms!
 
       respond_to do |format|
-        format.json { render json: {} }
+        format.json { render json: { success: true } }
       end
     else
       respond_to do |format|
@@ -35,7 +35,7 @@ class VerificationsController < ApplicationController
 
       if @user.save
         respond_to do |format|
-          format.json { render json: { auth_token: @user.auth_token } }
+          format.json { render json: { success: true, auth_token: @user.auth_token } }
         end
       else
         respond_to do |format|

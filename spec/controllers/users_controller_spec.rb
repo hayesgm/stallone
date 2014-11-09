@@ -61,4 +61,28 @@ RSpec.describe UsersController, :type => :controller do
     end
   end
 
+  describe "Add spots" do
+    let(:passphrase) { "a password" }
+    let(:user) { create(:user) }
+
+    it "fails when missing lat or long" do
+      expect do
+        post :add_spot, { latitude: nil, longitude: '222', auth_token: user.auth_token, format: 'json' }
+      end.to raise_error(RuntimeError)
+    end
+
+    it "can add a valid spot" do
+      user.generate_keys!(passphrase)
+
+      expect do
+        post :add_spot, { latitude: '111', longitude: '222', auth_token: user.auth_token, format: 'json' }
+      end.to change { Spot.count }.by(1)
+
+      message = user.decrypt(Spot.last.encrypted_message, passphrase)
+
+      expect(message.include?("5551212 was at 111/222")).to be true
+      expect(Spot.last.message_hash).to eq(Base64.encode64(Digest::SHA256.digest(message)))
+    end
+  end
+
 end

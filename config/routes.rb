@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # Users
   get  'users/check'
   post 'users/initialize_keys'
+  post 'users/spots' => 'users#add_spot'
 
   get '/done' => 'home#done', as: :done
   get '/privacy' => 'home#privacy', as: :privacy
