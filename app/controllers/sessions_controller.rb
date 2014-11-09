@@ -27,6 +27,6 @@ class SessionsController < ApplicationController
   # Logout from your account
   def logout
     reset_session
-    redirect_to root_path, flash: "You have been logged out"
+    redirect_to root_path, notice: "You have been logged out"
   end
 end

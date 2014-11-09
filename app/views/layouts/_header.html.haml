@@ -2,4 +2,8 @@
   .container
     %a#brand{:href => root_path}
       Innocent
-    %a.btn.btn-default.btn-sm.pull-right{href: demo_path} Access Your Archive
+    - if logged_in?
+      %a.btn.btn-default.btn-sm.pull-right{href: account_path} Access Your Archive
+      %a.pull-right{href: logout_path} Logout
+    - else
+      %a.btn.btn-default.btn-sm.pull-right{href: login_path} Access Your Archive

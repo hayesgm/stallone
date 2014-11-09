@@ -1,7 +1,7 @@
 %h1 Sessions#login
 %p Find me in app/views/sessions/login.html.haml
 
-= form_tag url: sessions_login_path do
+= form_tag url: login_path do
   
   - if flash[:errors]
     %p.warning= flash[:errors]

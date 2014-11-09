@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # Session
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
+  get 'logout' => 'sessions#logout'
 
   # Account
   get '/account' => 'accounts#home'
