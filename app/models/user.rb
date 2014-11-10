@@ -66,10 +66,11 @@ class User < ActiveRecord::Base
     raise SlyErrors::StateError, "Missing public key" if public_key.blank?
     raise SlyErrors::StateError, "Missing private key" if private_key.blank?
 
-    private_key = OpenSSL::PKey::RSA.new(self.public_key + self.private_key, passphrase)
+    # Store in memory for time savings
+    @private_key ||= OpenSSL::PKey::RSA.new(self.public_key + self.private_key, passphrase)
 
     # Return the decrypted string
-    return private_key.private_decrypt(Base64.decode64(msg))
+    return @private_key.private_decrypt(Base64.decode64(msg))
   end
 
   def is_correct_passphrase?(passphrase)

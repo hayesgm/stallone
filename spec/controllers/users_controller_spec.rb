@@ -14,13 +14,13 @@ RSpec.describe UsersController, :type => :controller do
     it "rejects missing auth" do
       expect do
         get :check, { auth_token: "", format: :json }
-      end.to raise_error(RuntimeError)
+      end.to raise_error(SlyErrors::AuthorizationError)
     end
 
     it "rejects bad auth" do
       expect do
         get :check, { auth_token: "wrongAuth", format: :json }
-      end.to raise_error(RuntimeError)
+      end.to raise_error(SlyErrors::AuthorizationError)
     end
   end
 
@@ -33,14 +33,14 @@ RSpec.describe UsersController, :type => :controller do
 
       expect do
         post :initialize_keys, { auth_token: "validAuth", format: 'json' }
-      end.to raise_error(RuntimeError)
+      end.to raise_error(SlyErrors::StateError)
     end
 
     it "fails when given a too-short passphrase" do
       # TODO: These errors should be handled better
       expect do
         post :initialize_keys, { auth_token: "validAuth", passphrase: "bad", format: 'json' }
-      end.to raise_error(RuntimeError)
+      end.to raise_error(ArgumentError)
     end
 
     # Do a valid key initiation
@@ -61,14 +61,14 @@ RSpec.describe UsersController, :type => :controller do
     end
   end
 
-  describe "Add spots" do
+  describe "Add single spot" do
     let(:passphrase) { "a password" }
     let(:user) { create(:user) }
 
     it "fails when missing lat or long" do
       expect do
         post :add_spot, { latitude: nil, longitude: '222', auth_token: user.auth_token, format: 'json' }
-      end.to raise_error(RuntimeError)
+      end.to raise_error(SlyErrors::ParameterError)
     end
 
     it "can add a valid spot" do
@@ -78,11 +78,59 @@ RSpec.describe UsersController, :type => :controller do
         post :add_spot, { latitude: '111', longitude: '222', auth_token: user.auth_token, format: 'json' }
       end.to change { Spot.count }.by(1)
 
-      message = user.decrypt(Spot.last.encrypted_message, passphrase)
+      decrypted_message = user.decrypt(Spot.last.encrypted_message, passphrase)
+      message = JSON(decrypted_message)
 
-      expect(message.include?("5551212 was at 111/222")).to be true
-      expect(Spot.last.message_hash).to eq(Base64.encode64(Digest::SHA256.digest(message)))
+      expect(message['latitude']).to eq('111')
+      expect(message['longitude']).to eq('222')
+      expect(message['timestamp']).to_not be_blank
+
+      expect(Spot.last.message_hash).to eq(Base64.encode64(Digest::SHA256.digest(decrypted_message)))
     end
   end
 
+  describe "Add multiple spots" do
+    let(:passphrase) { "a password" }
+    let(:user) { create(:user) }
+
+    it "fails when missing lat or long" do
+      expect do
+        post :add_spots, { spots: [ { latitude: nil, longitude: '222' } ], auth_token: user.auth_token, format: 'json' }
+      end.to raise_error(SlyErrors::ParameterError)
+    end
+
+    it "can add one valid spot" do
+      user.generate_keys!(passphrase)
+
+      expect do
+        post :add_spots, { spots: [ { latitude: '111', longitude: '222' } ], auth_token: user.auth_token, format: 'json' }
+      end.to change { Spot.count }.by(1)
+
+      decrypted_message = user.decrypt(Spot.last.encrypted_message, passphrase)
+      message = JSON(decrypted_message)
+
+      expect(message['latitude']).to eq('111')
+      expect(message['longitude']).to eq('222')
+      expect(message['timestamp']).to_not be_blank
+
+      expect(Spot.last.message_hash).to eq(Base64.encode64(Digest::SHA256.digest(decrypted_message)))
+    end
+
+    it "can add two valid spots" do
+      user.generate_keys!(passphrase)
+
+      expect do
+        post :add_spots, { spots: [ { latitude: '111', longitude: '222' }, { latitude: '333', longitude: '444' } ], auth_token: user.auth_token, format: 'json' }
+      end.to change { Spot.count }.by(2)
+
+      decrypted_message = user.decrypt(Spot.last.encrypted_message, passphrase)
+      message = JSON(decrypted_message)
+
+      expect(message['latitude']).to eq('333')
+      expect(message['longitude']).to eq('444')
+      expect(message['timestamp']).to_not be_blank
+
+      expect(Spot.last.message_hash).to eq(Base64.encode64(Digest::SHA256.digest(decrypted_message)))
+    end
+  end
 end

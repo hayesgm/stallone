@@ -13,7 +13,8 @@
   - spots.each do |spot|
 
     - # Decode from session data
-    - spot.decode(session[:passphrase])
+    - spot.decode!(session[:passphrase])
+    
     - time = Time.at(spot.timestamp)
 
     %tr

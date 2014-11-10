@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   # Users
   get  'users/check'
   post 'users/initialize_keys'
-  post 'users/spots' => 'users#add_spot'
+  post 'users/spot' => 'users#add_spot'
+  post 'users/spots' => 'users#add_spots'
 
   # Session
   get 'login' => 'sessions#new'

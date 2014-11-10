@@ -8,11 +8,11 @@ class ApplicationController < ActionController::Base
   def grab_user
     auth_token = params[:auth_token]
 
-    raise "Missing auth" if auth_token.blank?
+    raise SlyErrors::AuthorizationError, "Missing auth" if auth_token.blank?
 
     @user = User.find_by_auth_token(auth_token.to_s)
 
-    raise "Missing user" if @user.nil?
+    raise SlyErrors::AuthorizationError, "User not discovered" if @user.nil?
   end
 
   def logged_in?
