@@ -1,0 +1,4 @@
+Time Captured, User UUID, Message SHA-256 Hash
+<%- @spots.includes(:user).order('id DESC').each do |spot| -%>
+<%= spot.created_at.to_s %>,<%= spot.user.uuid %>,<%= spot.message_hash %>
+<%- end -%>
