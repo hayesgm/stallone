@@ -1,7 +1,7 @@
 -# locals: spots
 
 %h3
-  November 8th, 2014
+  November 9th, 2014
   %span.glyphicon.glyphicon-backward
   %span.glyphicon.glyphicon-calendar
   %span.glyphicon.glyphicon-forward
@@ -19,4 +19,4 @@
     %tr
       %td= time.strftime('%m/%d/%y')
       %td= time.strftime('%l:%M%p').downcase
-      %td #{spot.latitude} &times; #{spot.longitude}
+      %td.small #{spot.latitude} &times; #{spot.longitude}

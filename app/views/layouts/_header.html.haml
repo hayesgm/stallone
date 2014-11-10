@@ -1,10 +1,19 @@
-%header
+%header.navbar{:role => "navigation"}
   .container
-    %a#brand{:href => root_path}
-      Innocent
-    - if logged_in?
-      #{@user.phone_number}
-      %a.btn.btn-default.btn-sm.pull-right{href: account_path} Access Your Archive
-      %a.pull-right{href: logout_path} Logout
-    - else
-      %a.btn.btn-default.btn-sm.pull-right{href: login_path} Access Your Archive
+    .navbar-header
+      %a#brand{:href => root_path}
+        Innocent
+    %ul.nav.navbar-nav.navbar-right
+      - if logged_in?
+        %li.dropdown
+          %a.dropdown-toggle.link{:href => "#", :data => {:toggle => "dropdown"}}
+            #{@user.phone_number}
+            %span.caret
+          %ul.dropdown-menu{:role => "menu"}
+            %li
+              %a{href: account_path} Access Your Archive
+            %li
+              %a{href: logout_path} Logout
+      - else
+        %li
+          %a.btn.btn-default.btn-sm{href: login_path} Access Your Archive
