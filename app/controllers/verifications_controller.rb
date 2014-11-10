@@ -34,7 +34,7 @@ class VerificationsController < ApplicationController
         @user = User.find_by_phone_number(@verification.phone_number)
 
         respond_to do |format|
-            format.json { render json: { success: true, auth_token: @user.auth_token } }
+            format.json { render json: { success: true, auth_token: @user.auth_token, public_key: @user.public_key } }
           end
       else
 

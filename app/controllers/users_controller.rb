@@ -55,9 +55,17 @@ class UsersController < ApplicationController
 
   # Add multiple spots
   def add_spots
-    raise SlyErrors::ParameterError, "Missing spots array" if params[:spots].blank?
 
-    spots = JSON(params[:spots])
+    spots = params[:spots]
+
+    # Accept blank
+    if spots.nil? || spots.blank? || spots.empty?
+      respond_to do |format|
+        format.json { render json: { success: true } }
+      end
+
+      return
+    end
 
     raise SlyErrors::ParameterError, "Spots not an array" unless spots.is_a?(Array)
 
