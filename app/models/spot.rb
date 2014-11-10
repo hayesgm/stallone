@@ -16,23 +16,25 @@ class Spot < ActiveRecord::Base
 
   ### Member Functions
 
-  # TODO: Test
+  # Decypts this spot's message
   def decrypt(passphrase)
     self.user.decrypt(self.encrypted_message, passphrase)
   end
 
-  def decode(passphrase)
-    JSON(decrypt(passphrase)).each do |k,v|
-      self.send("#{k}=", v)
-    end
-  end
-
-  # TODO: Test
-  def decypted_and_verify(passphrase)
+  def decypt_and_verify(passphrase)
     decrypted_message = decrypt(passphrase)
 
     expected = Digest::SHA256.digest(decrypted_message)
-    raise "Failed SHA-256 checksum" if expected != Base64.decode64(message_hash)
+    raise SlyErrors::StateError, "Failed SHA-256 checksum" unless expected == Base64.decode64(message_hash)
+
+    decrypted_message
+  end
+
+  # Decrypts the message and loads it into transient attributes
+  def decode!(passphrase)
+    JSON(decrypt(passphrase)).each do |k,v|
+      self.send("#{k}=", v)
+    end
   end
 
 end

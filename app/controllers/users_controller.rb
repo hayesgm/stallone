@@ -38,12 +38,8 @@ class UsersController < ApplicationController
 
     message = {phone_number: @user.phone_number, latitude: latitude, longitude: longitude, speed: speed, course: course, timestamp: timestamp}.to_json
 
-    encrypted_message = @user.encrypt(message)
-    message_hash = Base64.encode64(Digest::SHA256.digest(message))
-
-    p encrypted_message
-    p message_hash
-
+    encrypted_message, message_hash = @user.encrypt_and_sign(message)
+    
     @spot = @user.spots.new(encrypted_message: encrypted_message, message_hash: message_hash)
 
     if @spot.save

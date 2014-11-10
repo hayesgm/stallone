@@ -52,6 +52,14 @@ class User < ActiveRecord::Base
     return Base64.encode64(public_key.public_encrypt(msg))
   end
 
+  # TODO: Test
+  def encrypt_and_sign(message)
+    encrypted_message = self.encrypt(message)
+    message_hash = Base64.encode64(Digest::SHA256.digest(message))
+
+    return encrypted_message, message_hash
+  end
+
   def decrypt(msg, passphrase)
     raise ArgumentError, "Missing passphrase" if passphrase.blank?
     raise ArgumentError, "Passphrase must be string, got `#{passphrase.class.name}`" unless passphrase.is_a?(String)
