@@ -29,20 +29,28 @@ class VerificationsController < ApplicationController
       end
     else
 
-      # We have a verification; let's create a user account
-      # TODO: Are we going to allow other auths?
-      @user = User.new(phone_number: @verification.phone_number)
+      # Should we associate with an existing user or make a new user?
+      if User.where(phone_number: @verification.phone_number).exists?
+        @user = User.find_by_phone_number(@verification.phone_number)
 
-      if @user.save
         respond_to do |format|
-          format.json { render json: { success: true, auth_token: @user.auth_token } }
-        end
+            format.json { render json: { success: true, auth_token: @user.auth_token } }
+          end
       else
-        respond_to do |format|
-          format.json { render json: { errors: @user.errors.full_messages }, status: 500 }
+
+        # We have a verification; let's create a user account
+        @user = User.new(phone_number: @verification.phone_number)
+
+        if @user.save
+          respond_to do |format|
+            format.json { render json: { success: true, auth_token: @user.auth_token } }
+          end
+        else
+          respond_to do |format|
+            format.json { render json: { errors: @user.errors.full_messages }, status: 500 }
+          end
         end
       end
-
     end
   end
 

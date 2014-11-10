@@ -21,6 +21,7 @@ class Spot < ActiveRecord::Base
     self.user.decrypt(self.encrypted_message, passphrase)
   end
 
+  # Decrypts this spot's message, and verifies its checksum matches expectation
   def decypt_and_verify(passphrase)
     decrypted_message = decrypt(passphrase)
 
