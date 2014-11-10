@@ -1,9 +1,35 @@
-header
+header.navbar
   border-bottom: 1px solid $border_color
   height: 76px
   line-height: 36px
+  margin: 0px
   padding: 20px 0px
   a#brand
     font-size: 20px
     font-weight: 100
     color: darken($text_color, 5%)
+  ul
+    margin: 0px
+    padding: 0px
+  .navbar-nav > li > a
+    height: 36px
+    line-height: 36px
+    padding-top: 0px
+    padding-bottom: 0px
+    &.link
+      margin: 0px 5px
+      padding: 0px 10px
+      &:hover, &:focus, &:active
+        background: inherit
+  img
+    border-radius: 50%
+    width: 36px
+    height: 36px
+    margin: 0px 10px 0px 0px
+
+@media (max-width:768px)
+  .navbar-header
+    float: left
+    margin: 0px !important
+  .navbar-right
+    float: right
