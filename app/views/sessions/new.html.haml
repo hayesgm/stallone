@@ -1,13 +1,16 @@
-%h1 Sessions#login
-%p Find me in app/views/sessions/login.html.haml
+%section#core
+  .container
+    = form_tag url: login_path do
+      .form-header Access your Location Archive
+      .form-body
+        - if flash[:errors]
+          %p.warning= flash[:errors]
 
-= form_tag url: login_path do
-  
-  - if flash[:errors]
-    %p.warning= flash[:errors]
-
-  %input{name: "phone_number", placeholder: "312-111-2222"}
-
-  %input{name: "passphrase", placeholder: "Your passphrase..."}
-
-  %input{type: "submit"}
+        .form-group.inset
+          %label Phone #
+          %input.form-control{name: "phone_number"}
+        .form-group.inset
+          %label{:for => "passphrase"} Pass phrase
+          %input.form-control{name: "passphrase"}
+        .form-group
+          %button.btn.btn-primary{:type => "submit"} Access Archive
