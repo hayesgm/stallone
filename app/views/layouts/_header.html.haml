@@ -3,6 +3,7 @@
     %a#brand{:href => root_path}
       Innocent
     - if logged_in?
+      #{@user.phone_number}
       %a.btn.btn-default.btn-sm.pull-right{href: account_path} Access Your Archive
       %a.pull-right{href: logout_path} Logout
     - else
