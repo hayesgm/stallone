@@ -16,15 +16,16 @@ Rails.application.routes.draw do
 
   # Account
   get '/account' => 'accounts#home'
-  get '/map' => 'accounts#map'
 
   # Stream
   get '/stream' => 'home#stream', format: 'text'
 
+  # Main Pages
   get '/done' => 'home#done', as: :done
   get '/privacy' => 'home#privacy', as: :privacy
   get '/tos' => 'home#tos', as: :tos
   
+  # Demo?
   get 'demo' => 'demos#new', as: :demo
   post 'demo' => 'demos#create'
 

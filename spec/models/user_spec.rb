@@ -28,5 +28,19 @@ RSpec.describe User, :type => :model do
       expect(user.decrypt(encrypted_message, pass)).to eq(msg)
     end
 
+    context "when verifying a password" do
+      before { user.generate_keys!("ballon1") }
+
+      it "should verify correct passphrase" do
+        expect(user.is_correct_passphrase?("ballon1")).to be true
+      end
+
+      ["blue","dog house","balloon11","",nil,0,true,false].each do |exp|  
+        it "should reject `#{exp}`" do
+          expect(user.is_correct_passphrase?(exp)).to be false
+        end
+      end
+    end
+
   end
 end

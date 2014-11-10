@@ -28,9 +28,9 @@ class User < ActiveRecord::Base
 
   def generate_keys!(passphrase)
     # Run some sanity checks
-    raise "Passphrase blank!" if passphrase.blank?
-    raise "Passphrase must be at least 6 characters, found `#{passphrase}`" if passphrase.length < 6
-    raise "Already have keys set" if self.public_key.present? || self.private_key.present?
+    raise ArgumentError, "Passphrase blank!" if passphrase.blank?
+    raise ArgumentError, "Passphrase must be at least 6 characters, found `#{passphrase}`" if passphrase.length < 6
+    raise SlyErrors::StateError, "Already have keys set" if self.public_key.present? || self.private_key.present?
 
     rsa_key = OpenSSL::PKey::RSA.new(2048)
     cipher =  OpenSSL::Cipher::Cipher.new('des3')
@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def encrypt(msg)
-    raise "Missing public key" if public_key.blank?
+    raise SlyErrors::StateError, "Missing public key" if public_key.blank?
 
     public_key = OpenSSL::PKey::RSA.new(self.public_key)
     
@@ -53,9 +53,10 @@ class User < ActiveRecord::Base
   end
 
   def decrypt(msg, passphrase)
-    raise "Missing public key" if public_key.blank?
-    raise "Missing private key" if private_key.blank?
-    raise "Missing passphrase" if passphrase.blank?
+    raise ArgumentError, "Missing passphrase" if passphrase.blank?
+    raise ArgumentError, "Passphrase must be string, got `#{passphrase.class.name}`" unless passphrase.is_a?(String)
+    raise SlyErrors::StateError, "Missing public key" if public_key.blank?
+    raise SlyErrors::StateError, "Missing private key" if private_key.blank?
 
     private_key = OpenSSL::PKey::RSA.new(self.public_key + self.private_key, passphrase)
 
@@ -63,13 +64,15 @@ class User < ActiveRecord::Base
     return private_key.private_decrypt(Base64.decode64(msg))
   end
 
-  def verify(passphrase)
+  def is_correct_passphrase?(passphrase)
     encrypted = encrypt("test")
     
     # Try to decrypt, if it works, we're good
     begin
       decrypt(encrypted, passphrase)
     rescue OpenSSL::PKey::RSAError => e
+      return false
+    rescue ArgumentError => e
       return false
     end
 

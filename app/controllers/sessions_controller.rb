@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 
     user = User.find_by_phone_number(params[:phone_number])
 
-    if user && user.verify(params[:passphrase])
+    if user && user.is_correct_passphrase?(params[:passphrase])
       
       session[:user_id] = user.id
       session[:passphrase] = params[:passphrase]
