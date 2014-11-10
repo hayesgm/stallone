@@ -95,7 +95,7 @@ RSpec.describe UsersController, :type => :controller do
 
     it "fails when missing lat or long" do
       expect do
-        post :add_spots, { spots: [ { latitude: nil, longitude: '222' } ], auth_token: user.auth_token, format: 'json' }
+        post :add_spots, { spots: [ { latitude: nil, longitude: '222' } ].to_json, auth_token: user.auth_token, format: 'json' }
       end.to raise_error(SlyErrors::ParameterError)
     end
 
@@ -103,7 +103,7 @@ RSpec.describe UsersController, :type => :controller do
       user.generate_keys!(passphrase)
 
       expect do
-        post :add_spots, { spots: [ { latitude: '111', longitude: '222' } ], auth_token: user.auth_token, format: 'json' }
+        post :add_spots, { spots: [ { latitude: '111', longitude: '222' } ].to_json, auth_token: user.auth_token, format: 'json' }
       end.to change { Spot.count }.by(1)
 
       decrypted_message = user.decrypt(Spot.last.encrypted_message, passphrase)
@@ -120,7 +120,7 @@ RSpec.describe UsersController, :type => :controller do
       user.generate_keys!(passphrase)
 
       expect do
-        post :add_spots, { spots: [ { latitude: '111', longitude: '222' }, { latitude: '333', longitude: '444' } ], auth_token: user.auth_token, format: 'json' }
+        post :add_spots, { spots: [ { latitude: '111', longitude: '222' }, { latitude: '333', longitude: '444' } ].to_json, auth_token: user.auth_token, format: 'json' }
       end.to change { Spot.count }.by(2)
 
       decrypted_message = user.decrypt(Spot.last.encrypted_message, passphrase)

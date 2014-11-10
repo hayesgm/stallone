@@ -55,10 +55,14 @@ class UsersController < ApplicationController
 
   # Add multiple spots
   def add_spots
-    raise SlyErrors::ParameterError, "Missing spots array" if params[:spots].blank? || !params[:spots].is_a?(Array)
+    raise SlyErrors::ParameterError, "Missing spots array" if params[:spots].blank?
 
-    params[:spots].each do |spot|
-      raise SlyErrors::ParameterError unless spot.is_a?(Hash)
+    spots = JSON(params[:spots])
+
+    raise SlyErrors::ParameterError, "Spots not an array" unless spots.is_a?(Array)
+
+    spots.each do |spot|
+      raise SlyErrors::ParameterError, "Spot is not a hash object" unless spot.is_a?(Hash)
 
       # We'll need to encrypt this message
       latitude = spot['latitude']
