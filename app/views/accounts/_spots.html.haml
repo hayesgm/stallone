@@ -17,7 +17,7 @@
     %th Date
     %th Time (#{Time.zone.now.zone})
     %th Location
-  - spots.group_by { |spot| spot.timestamp.floor }.each do |timestamp, gspots|
+  - spots.group_by { |spot| spot.timestamp.floor - ( spot.timestamp.floor % 60 ) }.each do |timestamp, gspots|
     - time = Time.zone.at(timestamp)
 
     %tr
