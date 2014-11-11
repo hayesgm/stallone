@@ -6,7 +6,7 @@
 class Spot < ActiveRecord::Base
 
   # Transient attributes
-  attr_accessor :phone_number, :latitude, :longitude, :speed, :course, :timestamp
+  attr_accessor :phone_number, :latitude, :longitude, :speed, :course, :timestamp, :time_in_zone
 
   # Associations
   belongs_to :user
@@ -36,6 +36,11 @@ class Spot < ActiveRecord::Base
     JSON(decrypt(passphrase)).each do |k,v|
       self.send("#{k}=", v)
     end
+  end
+
+  def timestamp=(time)
+    @timestamp = time
+    @time_in_zone = Time.zone.at(time)
   end
 
 end
