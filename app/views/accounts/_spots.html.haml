@@ -8,7 +8,7 @@
 %table.table.table-hover
   %tr
     %th Date
-    %th Time (#{Time.now.zone})
+    %th Time (#{Time.zone.now.zone})
     %th Location
   - spots.each do |spot|
     - time = Time.zone.at(spot.timestamp)
