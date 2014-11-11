@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
   def set_time_zone
     _tz = Time.zone
-    Time.zone = ActiveSupport::TimeZone["Pacific Time (US & Canada)"]
+    Time.zone = ActiveSupport::TimeZone['Pacific Time (US & Canada)']
     yield
   ensure
     Time.zone = _tz

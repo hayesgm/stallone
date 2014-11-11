@@ -11,7 +11,7 @@
     %th Time (#{Time.now.zone})
     %th Location
   - spots.each do |spot|
-    - time = Time.at(spot.timestamp)
+    - time = Time.zone.at(spot.timestamp)
 
     %tr
       %td= time.strftime('%m/%d/%y')
