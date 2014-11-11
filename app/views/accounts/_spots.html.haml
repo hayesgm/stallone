@@ -1,7 +1,7 @@
 -# locals: spots
 
 %h3
-  November 9th, 2014
+  #{Time.now.strftime('%B %d, %Y')}
   %span.glyphicon.glyphicon-backward
   %span.glyphicon.glyphicon-calendar
   %span.glyphicon.glyphicon-forward
@@ -11,10 +11,6 @@
     %th Time
     %th Location
   - spots.each do |spot|
-
-    - # Decode from session data
-    - spot.decode!(session[:passphrase])
-    
     - time = Time.at(spot.timestamp)
 
     %tr

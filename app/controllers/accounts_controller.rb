@@ -3,11 +3,8 @@ class AccountsController < ApplicationController
   before_filter :grab_user_from_session
 
   def home
-    
-  end
-
-  def map
-
+    @spots = @user.spots.order("id desc").limit(50)
+    @spots.each { |spot| spot.decode!(session[:passphrase]) }
   end
 
   private
