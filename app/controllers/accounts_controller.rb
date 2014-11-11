@@ -3,7 +3,10 @@ class AccountsController < ApplicationController
   before_filter :grab_user_from_session
 
   def home
-    @spots = @user.spots.order("id desc").limit(50)
+    @page = (params[:page] || 0).to_i
+    @per_page = 50
+
+    @spots = @user.spots.order("id desc").limit(@per_page).offset(@page * @per_page)
     @spots.each { |spot| spot.decode!(session[:passphrase]) }
   end
 
