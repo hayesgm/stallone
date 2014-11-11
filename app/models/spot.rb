@@ -43,4 +43,20 @@ class Spot < ActiveRecord::Base
     @time_in_zone = Time.zone.at(time)
   end
 
+  def latitude
+    @latitude.to_f
+  end
+
+  def longitude
+    @longitude.to_f
+  end
+
+  def speed
+    @speed.to_f
+  end
+
+  def course
+    @course.to_f
+  end
+
 end

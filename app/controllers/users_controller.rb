@@ -28,10 +28,10 @@ class UsersController < ApplicationController
   # Add a spot
   def add_spot
     # We'll need to encrypt this message
-    latitude = params[:latitude]
-    longitude = params[:longitude]
-    speed = params[:speed]
-    course = params[:course]
+    latitude = params[:latitude].to_f
+    longitude = params[:longitude].to_f
+    speed = params[:speed].to_f
+    course = params[:course].to_f
     timestamp = params[:timestamp].to_f # expect a float
 
     raise SlyErrors::ParameterError, "Missing latitude or longitude" if latitude.blank? || longitude.blank?
@@ -73,10 +73,10 @@ class UsersController < ApplicationController
       raise SlyErrors::ParameterError, "Spot is not a hash object" unless spot.is_a?(Hash)
 
       # We'll need to encrypt this message
-      latitude = spot['latitude']
-      longitude = spot['longitude']
-      speed = spot['speed']
-      course = spot['course']
+      latitude = spot['latitude'].to_f
+      longitude = spot['longitude'].to_f
+      speed = spot['speed'].to_f
+      course = spot['course'].to_f
       timestamp = spot['timestamp'].to_f # expect a float
 
       raise SlyErrors::ParameterError, "Missing latitude or longitude" if latitude.blank? || longitude.blank?

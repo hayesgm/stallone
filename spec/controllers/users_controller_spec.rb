@@ -118,8 +118,8 @@ RSpec.describe UsersController, :type => :controller do
       decrypted_message = user.decrypt(Spot.last.encrypted_message, passphrase)
       message = JSON(decrypted_message)
 
-      expect(message['latitude']).to eq('111')
-      expect(message['longitude']).to eq('222')
+      expect(message['latitude']).to eq(111)
+      expect(message['longitude']).to eq(222)
       expect(message['timestamp']).to_not be_blank
 
       expect(Spot.last.message_hash).to eq(Base64.encode64(Digest::SHA256.digest(decrypted_message)))
@@ -135,8 +135,8 @@ RSpec.describe UsersController, :type => :controller do
       decrypted_message = user.decrypt(Spot.last.encrypted_message, passphrase)
       message = JSON(decrypted_message)
 
-      expect(message['latitude']).to eq('333')
-      expect(message['longitude']).to eq('444')
+      expect(message['latitude']).to eq(333)
+      expect(message['longitude']).to eq(444)
       expect(message['timestamp']).to_not be_blank
 
       expect(Spot.last.message_hash).to eq(Base64.encode64(Digest::SHA256.digest(decrypted_message)))

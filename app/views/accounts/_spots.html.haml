@@ -17,10 +17,10 @@
     %th Date
     %th Time (#{Time.zone.now.zone})
     %th Location
-  - spots.group_by { |s| spot.timestamp.floor }.each do |timestamp, _|
+  - spots.group_by { |spot| spot.timestamp.floor }.each do |timestamp, gspots|
     - time = Time.zone.at(timestamp)
 
     %tr
       %td= time.strftime('%m/%d/%y')
       %td= time.strftime('%l:%M%p').downcase
-      %td.small #{spots.map(&:latitude).mean} &times; #{spot.map(&:longitude).mean}
+      %td.small #{gspots.map(&:latitude).mean} &times; #{gspots.map(&:longitude).mean}
