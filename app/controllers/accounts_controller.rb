@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
     @page = (params[:page] || 0).to_i
     @date = grab_date || Date.today
 
-    @spots = @user.spots.order("id desc").where("created_at >= :begin AND created_at <= :end", begin: @date.beginning_of_day, end: @date.end_of_day)
+    @spots = @user.spots.order("id desc").where("created_at > :begin AND created_at <= :end", begin: @date.beginning_of_day, end: @date.end_of_day)
     @spots.each { |spot| spot.decode!(session[:passphrase]) }
   end
 
