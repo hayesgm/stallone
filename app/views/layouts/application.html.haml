@@ -31,6 +31,6 @@
     = render 'layouts/footer'
     = javascript_include_tag 'application'
 
-    - mp_params = { "Route" => "#{params[:controller]}-#{params[:action]}" }.merge(Vignette.tests)
+    - mp_params = { "Route" => "#{params[:controller]}-#{params[:action]}" }.merge(Vignette.tests(session, cookies))
     :javascript
         mixpanel.track("Page View", #{ mp_params.to_json });
