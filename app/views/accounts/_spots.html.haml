@@ -1,14 +1,14 @@
--# locals: user, spots, page, per_page
+-# locals: user, spots, page, date
 
 %h3
-  #{Time.zone.at(spots.first.timestamp).strftime('%B %d, %Y')}
-  - if page > 0
-    %a.glyphicon.glyphicon-backward{href: account_path(page: page == 1 ? nil : page - 1)}
+  #{date.strftime('%B %d, %Y')}
+  - if date < Date.today
+    %a.glyphicon.glyphicon-backward{href: account_date_path(date: date.advance(days: 1))}
   - else
     %span.glyphicon.glyphicon-backward
   %span.glyphicon.glyphicon-calendar
-  - if user.spots.count > page * per_page
-    %a.glyphicon.glyphicon-forward{href: account_path(page: page + 1)}
+  - if user.spots.where("created_at < ?", date).exists?
+    %a.glyphicon.glyphicon-forward{href: account_date_path(date: date.advance(days: -1))}
   - else
     %span.glyphicon.glyphicon-forward
 
@@ -17,7 +17,7 @@
     %th Date
     %th Time (#{Time.zone.now.zone})
     %th Location
-  - spots.group_by { |spot| spot.timestamp.floor - ( spot.timestamp.floor % 60 ) }.each do |timestamp, gspots|
+  - spots.group_by { |spot| spot.timestamp.floor - ( spot.timestamp.floor % 1800 ) }.each do |timestamp, gspots|
     - time = Time.zone.at(timestamp)
 
     %tr

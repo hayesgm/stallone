@@ -4,9 +4,9 @@ class AccountsController < ApplicationController
 
   def home
     @page = (params[:page] || 0).to_i
-    @per_page = 50
+    @date = grab_date || Date.today
 
-    @spots = @user.spots.order("id desc").limit(@per_page).offset(@page * @per_page)
+    @spots = @user.spots.order("id desc").where("created_at >= :begin AND created_at <= :end", begin: @date.to_datetime, end: @date.to_datetime.end_of_day)
     @spots.each { |spot| spot.decode!(session[:passphrase]) }
   end
 
@@ -17,4 +17,12 @@ class AccountsController < ApplicationController
 
     @user = User.find(session[:user_id].to_i)
   end
+
+  def grab_date
+    # Check each is available
+    %w{day month year}.each { |s| return nil if params[s.to_sym].blank? }
+
+    return Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+  end
+
 end

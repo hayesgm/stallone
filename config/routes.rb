@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#logout'
 
   # Account
-  get '/account(/:page)' => 'accounts#home', as: :account
+  get '/account(/:month-:day-:year)' => 'accounts#home', as: :account
 
   # Stream
   get '/stream' => 'home#stream', format: 'text'
