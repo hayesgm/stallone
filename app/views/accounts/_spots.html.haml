@@ -2,7 +2,7 @@
 
 %h3
   #{date.strftime('%B %d, %Y')}
-  - if date < Date.today
+  - unless date.today?
     %a.glyphicon.glyphicon-backward{href: account_date_path(date: date.advance(days: 1))}
   - else
     %span.glyphicon.glyphicon-backward

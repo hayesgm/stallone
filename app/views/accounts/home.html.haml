@@ -4,5 +4,11 @@
       .col-sm-5
         = render 'spots', spots: @spots, date: @date, user: @user
       .col-sm-7
-        - spots_string = @spots.shuffle[0..50].map { |spot| "pin-m+1C90B0(#{spot.longitude},#{spot.latitude})" }
-        %img.img-responsive{:src => "http://api.tiles.mapbox.com/v4/safeshepherd.k6a9fn3e/#{spots_string.join(',')}/auto/600x600.png?access_token=pk.eyJ1Ijoic2FmZXNoZXBoZXJkIiwiYSI6IlBlTWt2TzgifQ.9lRMxmMNL0jbV8ArSnrjAw"}
+        - if @spots.count > 0
+          - spots_string = @spots.shuffle[0..50].map { |spot| "pin-m+1C90B0(#{spot.longitude},#{spot.latitude})" }
+          %img.img-responsive{:src => "http://api.tiles.mapbox.com/v4/safeshepherd.k6a9fn3e/#{spots_string.join(',')}/auto/600x600.png?access_token=pk.eyJ1Ijoic2FmZXNoZXBoZXJkIiwiYSI6IlBlTWt2TzgifQ.9lRMxmMNL0jbV8ArSnrjAw"}
+        - else
+          - if @date.today?
+            %h4 Awaiting data from your device...
+          - else
+            %h4 No data available for this day.
