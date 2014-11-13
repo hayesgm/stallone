@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
 
   def home
     @page = (params[:page] || 0).to_i
-    @date = grab_date || Date.today
+    @date = grab_date || Time.zone.today
 
     @spots = @user.spots.order("id desc").where("created_at > :begin AND created_at <= :end", begin: @date.beginning_of_day, end: @date.end_of_day)
     @spots.each { |spot| spot.decode!(session[:passphrase]) }
