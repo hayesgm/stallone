@@ -7,7 +7,9 @@ class AccountsController < ApplicationController
     @date = grab_date || Time.zone.today
 
     @spots = @user.spots.order("id desc").where("created_at > :begin AND created_at <= :end", begin: @date.beginning_of_day, end: @date.end_of_day)
+    logger.warn("Got #{@spots.count} spots")
     @spots.each { |spot| spot.decode!(session[:passphrase]) }
+    logger.warn("Decoded #{@spots.count} spots")
   end
 
   private
